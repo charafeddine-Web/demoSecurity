@@ -11,27 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired private UserRepository repo;
+    @Autowired
+    private UserRepository repo;
+
     @Autowired
     private PasswordEncoder encoder;
-    @Autowired private JwtUtil jwtUtil;
-    @Autowired private AuthenticationManager authManager;
 
     @PostMapping("/register")
     public String register(@RequestBody UserEntity user) {
         user.setPassword(encoder.encode(user.getPassword()));
         repo.save(user);
-        return "User registered";
-    }
-
-    @PostMapping("/login")
-    public String login(@RequestBody UserEntity user) {
-        Authentication auth = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
-        );
-        return jwtUtil.generateToken(user.getUsername());
+        return "User registered successfully";
     }
 }

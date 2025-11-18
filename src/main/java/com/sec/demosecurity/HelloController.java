@@ -6,14 +6,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello User, you are authenticated!";
+    @GetMapping("/public")
+    public String publicEndpoint() {
+        return "Ceci est un endpoint PUBLIC. Pas besoin d'être connecté.";
+    }
+
+    @GetMapping("/user/home")
+    public String userHome() {
+        return "Bienvenue USER ! Vous êtes authentifié.";
     }
 
     @GetMapping("/admin/dashboard")
-    public String admin() {
-        return "Admin Dashboard";
+    public String adminDashboard() {
+        return "Bienvenue ADMIN !";
     }
 }
+
 
